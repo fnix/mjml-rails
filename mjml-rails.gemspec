@@ -21,4 +21,5 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
   s.post_install_message = "Don't forget to install MJML e.g. \n$ npm install -g mjml"
 
+  s.add_development_dependency 'haml-rails', '0.9.0'
 end

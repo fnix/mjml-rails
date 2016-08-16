@@ -9,6 +9,7 @@ require "action_mailer"
 require "rails/railtie"
 require "rails/generators"
 require "rails/generators/test_case"
+Dir[Pathname.new(File.expand_path("..", __FILE__)).join("support/**/*.rb")].each { |f| require f }
 
 # require "minitest/reporters"
 # Minitest::Reporters.use!
