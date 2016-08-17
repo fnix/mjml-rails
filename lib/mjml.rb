@@ -1,5 +1,7 @@
 require "action_view"
 require "action_view/template"
+require "haml"
+require "haml/template/plugin"
 require "mjml/mjmltemplate"
 require "mjml/railtie"
 require "rubygems"
@@ -26,15 +28,27 @@ module Mjml
     raise RuntimeError, "Couldn't find the MJML binary.. have you run $ npm install mjml?"
   end
 
+  def self.rails_template_engine
+    @template_engine ||= if Rails.respond_to?(:application)
+      Rails.application.config.generators.options[:rails][:template_engine]
+    else
+      :erb
+    end
+  end
+
   BIN = discover_mjml_bin
 
   class Handler
-    def erb_handler
-      @erb_handler ||= ActionView::Template.registered_template_handler(:erb)
+    def template_handler
+      if Mjml.rails_template_engine == :haml
+        ActionView::Template.registered_template_handler(:haml)
+      else
+        ActionView::Template.registered_template_handler(:erb)
+      end
     end
 
     def call(template)
-      compiled_source = erb_handler.call(template)
+      compiled_source = template_handler.call(template)
       if template.formats.include?(:mjml)
         "Mjml::Mjmltemplate.to_html(begin;#{compiled_source};end).html_safe"
       else

@@ -1,0 +1,7 @@
+%mjml
+  %mj-body
+    %mj-container
+      %mj-section
+        %mj-column
+          %mj-text Hello World
+          = render :partial => 'user_info', :formats => [:html]

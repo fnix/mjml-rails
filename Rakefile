@@ -3,6 +3,7 @@ Bundler::GemHelper.install_tasks
 
 require 'rake/testtask'
 require 'rdoc/task'
+load 'tasks/update_haml_views.rake'
 
 desc 'Default: run unit tests.'
 task :default => :test

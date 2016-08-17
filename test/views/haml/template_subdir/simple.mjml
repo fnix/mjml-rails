@@ -1,0 +1,6 @@
+%mjml
+  %mj-body
+    %mj-container
+      %mj-section
+        %mj-column
+          %mj-text This template is in an alternate sub-directory
